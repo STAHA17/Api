@@ -7,15 +7,10 @@ from .serializer import UserSerializer,ApplianceSerializer
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework import permissions
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework.authentication import TokenAuthentication
-# from rest_framework.views import APIView
 # from django.contrib.auth.models import User
 # from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
-
-
 
 # class RegisterUser(APIView):
 #     def post(self, request):
@@ -80,6 +75,12 @@ def postUser(request):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+class ApplianceViewSet(viewsets.ModelViewSet):
+    queryset = Appliance.objects.all()
+    serializer_class = ApplianceSerializer
+    # authentication_classes=[TokenAuthentication]
+    # permission_classes=[IsAuthenticated]
+
 @api_view(['GET'])
 def getAppliance(request):
     appliance = Appliance.objects.all()
@@ -100,10 +101,6 @@ def postAppliance(request):
     if serializer.is_valid():
         serializer.save()
         return Response({'appliance':serializer.data},status=status.HTTP_200_OK) 
-
-class ApplianceViewSet(viewsets.ModelViewSet):
-    queryset = Appliance.objects.all()
-    serializer_class = ApplianceSerializer
 
     # @api_view(['GET','PUT','DELETE']) 
 

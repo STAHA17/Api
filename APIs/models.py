@@ -4,6 +4,11 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
+# Extra
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+# from rest_framework.authtoken.models import Token
+# from django.conf import settings
 
 class User(AbstractBaseUser,PermissionsMixin):
     # first_name =models.CharField(max_length=250)
@@ -21,6 +26,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     object =CustomUserManager()
     def __str__(self):
         return self.u_name
+
 
 class Appliance(models.Model):
     id = models.BigAutoField(primary_key=True)
